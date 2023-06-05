@@ -30,6 +30,15 @@ app.post('/pessoas', async function(req, res){
     res.status(500).json({ error: 'Ocorreu um erro ao buscar pessoasss' });
   }
 });
+app.get('/pessoas', async function(req, res){
+  try {
+    var pessoas = await Pessoa.delete(req.body.id);
+    res.json(pessoas.rows);
+  } catch (error) {
+    console.error('Erro ao buscar pessoas:', error);
+    res.status(500).json({ error: 'Ocorreu um erro ao buscar pessoasss' });
+  }
+});
 app.listen(3000, function() {
   console.log('App de Exemplo escutando na porta 3000!')
 });
