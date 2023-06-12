@@ -1,10 +1,10 @@
 const db = require("../db");
 
-class Pessoa {
+class Produto {
   static async select() {
     try {
       const connect = await db.connect();
-      const sql = "select * from pessoas"
+      const sql = "select * from produtos"
       return await connect.query(sql);
     } catch (error) {
       console.error('Erro em select:', error);
@@ -15,7 +15,7 @@ class Pessoa {
   static async insert(data) {
     try {
       const connect = await db.connect();
-      const sql = "INSERT INTO pessoas (nome, idade, uf) VALUES($1, $2, $3)";
+      const sql = "INSERT INTO produtos (nome, idade, uf) VALUES($1, $2, $3)";
       const values = [data.nome, data.idade, data.uf];
       return await connect.query(sql, values);
     } catch (error) {
@@ -48,4 +48,4 @@ class Pessoa {
   }
 }
 
-module.exports = Pessoa;
+module.exports = Produto;
