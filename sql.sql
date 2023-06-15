@@ -4,7 +4,7 @@ CREATE TABLE produtos(
 	data_cadastro DATE,
 	preco FLOAT,
 	descricao TEXT,
-	imagem TEXT
+	imagem STRING
 );
 
 INSERT INTO produtos(titulo, data_cadastro, preco, descricao, imagem)

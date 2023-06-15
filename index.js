@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const Produto = require("./models/produto");
 
-const app = express();
 
+const app = express();
+app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -23,11 +25,12 @@ app.get('/produtos', async function(req, res){
 });
 app.post('/produtos', async function(req, res){
   try {
-    var produtos = await Produto.insert();
+    console.log(req.body)
+    var produtos = await Produto.insert(req.body);
     res.json(produtos.rows);
   } catch (error) {
     console.error('Erro ao buscar produtos:', error);
-    res.status(500).json({ error: 'Ocorreu um erro ao buscar produtos' });
+    res.status(500).json({ error: 'Ocorreu um erro ao cadastrar produtos' });
   }
 });
 
@@ -41,15 +44,17 @@ app.put('/produtos', async function(req, res){
   }
 });
 
-app.get('/produtos', async function(req, res){
+app.delete('/produtos', async function(req, res){
   try {
+    console.log(req.body.id)
     var produtos = await Produto.delete(req.body.id);
     res.json(produtos.rows);
   } catch (error) {
     console.error('Erro ao buscar produtos:', error);
-    res.status(500).json({ error: 'Ocorreu um erro ao buscar produtos' });
+    res.status(500).json({ error: 'Ocorreu um erro ao deletar produtos' });
   }
 });
-app.listen(3000, function() {
-  console.log('App de Exemplo escutando na porta 3000!')
+
+app.listen(3003, function() {
+  console.log('App de Exemplo escutando na porta 3003!')
 });
